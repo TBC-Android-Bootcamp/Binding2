@@ -12,32 +12,37 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.bindinghomework2.R
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_home.view.*
 
 
 class HomeFragment : Fragment() {
 
+    private lateinit var itemView: View
     private lateinit var homeViewModel: HomeViewModel
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        itemView = inflater.inflate(R.layout.fragment_home, container, false)
         homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         init()
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        return itemView
     }
 
     private fun init(){
         homeViewModel.initCount()
 
         homeViewModel.count().observe(viewLifecycleOwner, Observer {
-            value.text = it.toString()
+            textValue.text = it.toString()
         })
 
-        //minusButton.setOnClickListener {
-        //    homeViewModel.decrease()
-        //}
-    }
+        itemView.increaseButton.setOnClickListener {
+            homeViewModel.increase()
+        }
 
+        itemView.decreaseButton.setOnClickListener {
+            homeViewModel.decrease()
+        }
+    }
 }

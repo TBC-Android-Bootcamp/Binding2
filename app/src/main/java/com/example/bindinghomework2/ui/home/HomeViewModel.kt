@@ -15,7 +15,7 @@ class HomeViewModel : ViewModel() {
     }
 
     fun increase(){
-        count.value = count.value!!.plus(1)
+        count.value = count.value!! + 1
     }
 
     fun decrease(){
